@@ -80,13 +80,13 @@ class CurrencyRatesController extends Controller
 
     /**
      * Return all rates from last week
-     * @return array|CurrencyRates
+     * @return Collection|CurrencyRates
      */
     static public function getWeeklyRates()
     {
         $weekAgo = Carbon::now()->subWeek();
         $now = Carbon::now();
 
-        return CurrencyRates::whereBetween('created_at', [$weekAgo, $now])->get();
+        return CurrencyRates::whereBetween('created_at', [$weekAgo, $now])->get()->reverse();
     }
 }
