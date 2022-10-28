@@ -22,7 +22,7 @@ class CurrencyRatesController extends Controller
         if (!self::isCurrencyNameValid($currencyName)) {
             return false;
         }
-        $url = "https://api.coinbase.com/v2/exchange-rates?currency=" . $currencyName;
+        $url = config("coinbaseAPIBaseUrl")."/exchange-rates?currency=" . $currencyName;
         //  Initiate curl
         $ch = curl_init();
         // Will return the response, if false it print the response
@@ -50,7 +50,7 @@ class CurrencyRatesController extends Controller
      */
     static public function getValidCurrencies()
     {
-        $url = "https://api.coinbase.com/v2/currencies";
+        $url = config("coinbaseAPIBaseUrl")."/currencies";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_URL, $url);
