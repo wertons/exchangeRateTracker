@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CurrencyRatesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::get('/isCurrencyValid/{currency}',function($currency){
+    return CurrencyRatesController::isCurrencyNameValid($currency);
+});
+Route::get('/snapshot/{currency}',function($currency){
+    return CurrencyRatesController::getRates($currency);
+});
+Route::get('/validCurrencies',function(){
+    return CurrencyRatesController::getValidCurrencies();
 });
