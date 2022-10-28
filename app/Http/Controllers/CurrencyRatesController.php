@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CurrencyRates;
 use App\Http\Requests\StoreCurrencyRatesRequest;
 use App\Http\Requests\UpdateCurrencyRatesRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -75,5 +76,17 @@ class CurrencyRatesController extends Controller
         return true;
         $currencies = self::getValidCurrencies();
         return in_array($currency, $currencies);
+    }
+
+    /**
+     * Return all rates from last week
+     * @return array|CurrencyRates
+     */
+    static public function getWeeklyRates()
+    {
+        $weekAgo = Carbon::now()->subWeek();
+        $now = Carbon::now();
+
+        return CurrencyRates::whereBetween('created_at', [$weekAgo, $now])->get();
     }
 }
