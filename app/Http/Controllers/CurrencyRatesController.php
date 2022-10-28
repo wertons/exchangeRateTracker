@@ -69,6 +69,10 @@ class CurrencyRatesController extends Controller
      */
     static public function isCurrencyNameValid(string $currency)
     {
+        //This was done as a check that currencies where valid, turns out ETH and BTC are not on the list of currencies
+        //only some currencies are even there, thus this method is derelict, but I'll leave it as a check should be
+        //performed
+        return true;
         $currencies = self::getValidCurrencies();
         return in_array($currency, $currencies);
     }
